@@ -1,0 +1,183 @@
+@import '../../styles.scss';
+
+.background-image {
+  //background: linear-gradient(to left, #00c6ff, #30a0ff);
+  background: linear-gradient(to left, #1976d2, #194f87);
+
+}
+
+.search-box {
+
+  a {
+    color: #a2ecff;
+    //text-decoration: underline;
+  }
+  padding-top: 3%;
+}
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+mat-select {
+  width: 90%;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: white;
+}
+
+.scholarship-btn {
+  margin: 1%;
+  background-color: #4080ff;
+  min-height: 75px !important;
+}
+
+:host /deep/ .mat-pseudo-checkbox-checked {
+  background-color: $primary;
+}
+
+.semi-dark-background {
+  background-color: rgba(25, 79, 135, .18);
+
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 2s; /* Firefox < 16 */
+  -ms-animation: fadein 2s; /* Internet Explorer */
+  -o-animation: fadein 2s; /* Opera < 12.1 */
+  animation: fadein 2s;
+}
+
+:host /deep/ .white-placeholder .mat-input-placeholder, .white-placeholder :host /deep/ .mat-select-placeholder {
+  color: white;
+}
+
+:host /deep/ .dark-placeholder .mat-input-placeholder {
+  color: $primary;
+}
+
+:host /deep/ .mat-select-underline {
+  background-color: white !important;
+}
+
+mat-form-field {
+  color: white;
+}
+
+:host /deep/ .white-underline {
+  .mat-input-underline, .mat-form-field-underline  {
+    background-color: white !important;
+    //background-color: transparent !important;
+  }
+}
+
+:host /deep/ .mat-select-arrow {
+  color: white !important;
+}
+
+:host /deep/ .mat-select-placeholder {
+  color: white;
+  font-size: 1.3em;
+}
+
+:host /deep/ .mat-form-field-label {
+  font-size: 100%;
+}
+
+.subheader {
+  font-size: 3.2em;
+  color: #FFFFFF;
+  width: 45%;
+  padding: 50px 0;
+  margin-left: 5%;
+}
+
+mat-form-field.location-div .mat-input-wrapper {
+  padding-bottom: 0;
+}
+
+#location {
+  border-bottom: 1px solid transparent;
+  margin-bottom: 0;
+}
+
+.preview-form {
+  background: transparent;
+  padding: 1px 0 0 0;
+  //margin-top: -37%;
+}
+
+.form-header {
+  text-align: center;
+  font-size: 55px;
+  color: white;
+}
+
+.mat-input-placeholder {
+  color: white;
+}
+
+.scholarship-btn-div {
+  margin-top: 5.7%;
+}
+
+.videowrapper {
+  float: none;
+  clear: both;
+  width: 100%;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  min-height: 500px;
+}
+
+.videowrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 990px) {
+  .popover-anchor {
+    margin-left: -20%;
+    //margin-top: -3%;
+  }
+
+}
+
+@media (min-width: 768px) {
+  .offset-md-5 {
+    margin-left: 41.666667%;
+  }
+}
+
+@media (max-width: 576px){
+  .subscribe-btn {
+    margin-left: 5%;
+  }
+}
+
+// Blog Post Stylings
+.btn-floating {
+  left: 15px;
+  bottom: 10px;
+  background-color: $my-lighten;
+}
+.interactive-icon {
+  margin-left: 9px;
+  margin-top: 6px;
+
+}
+
+.interactive-btn {
+  border: 1px solid $my-lighten;
+}
+.btn-text {
+  font-size: larger;
+  padding-left: 30%;
+  margin-top: 0;
+}
+
+input[_ngcontent-c8]:not([type]) {
+  border-bottom-color: transparent;
+}
