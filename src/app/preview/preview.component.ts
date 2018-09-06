@@ -1,7 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgForm, NgModel} from '@angular/forms';
-import {GooglePlaceDirective} from "../_directives/google-place.directive";
-import {MatDialog} from '@angular/material';
 import {prettifyKeys, toTitleCase} from '../_shared/utils';
 import {MASTER_LIST_EVERYTHING} from '../_models/constants';
 //import {GeocoderAddressComponent} from '@types/googlemaps'

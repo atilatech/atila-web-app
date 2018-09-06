@@ -1,0 +1,13 @@
+@import '../../../styles';
+
+a {
+  color: #4080ff !important;
+}
+
+a:hover {
+  color: #7cc7ff !important;
+}
+
+.btn-floating {
+  background-color: $my-lighten;
+}

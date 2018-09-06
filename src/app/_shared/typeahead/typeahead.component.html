@@ -1,0 +1,7 @@
+<label  id="typeahead-label" for="typeahead-config" class="" [ngStyle]="labelStyles">{{metadata['label']}}</label>
+<input [tabindex]="metadata['tabindex']" id="typeahead-config" type="text" class="form-control"
+       [placeholder]="metadata['placeholder'] || ''"
+       (selectItem)="optionSelected($event, item);"
+       (focus)="focus$.next($event.target.value)"
+       (click)="click$.next($event.target.value)"
+       #instance="ngbTypeahead" #item [ngbTypeahead]="search"  [name]="metadata['key']" [ngStyle]="inputStyles"/>

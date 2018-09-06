@@ -1,0 +1,19 @@
+<a class="btn-floating halfway-fab waves-effect waves-light left" title="Share" (click)="webShare()" id="dropdownMenuLink"
+     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [ngStyle]="shareItemStyle">
+    <i class="material-icons">share</i>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" target="_blank" (click)="logShareType('email')" [href]="'mailto:?body=Have you seen this item from Atila\?%0A%0A'+item.url+'&subject='+ item.title+ '- Atila'"  rel="noopener">
+      <mat-icon svgIcon="email"></mat-icon>
+    </a>
+    <a class="dropdown-item" (click)="logShareType('facebook-messenger')" target="_blank" [href]="'http://www.facebook.com/dialog/send?app_id=401124503672116&link='+item.url+'&redirect_uri=https://atila.ca/'" rel="noopener">
+      <mat-icon svgIcon="facebook-messenger"></mat-icon>
+    </a>
+    <a class="dropdown-item" (click)="logShareType('facebook')" target="_blank" [href]="'https://www.facebook.com/sharer.php?display=popup&quote='+item.title+'+&u='+item.url+'&app_id=401124503672116'" rel="noopener">
+      <mat-icon svgIcon="facebook"></mat-icon>
+    </a>
+    <a class="dropdown-item"  (click)="logShareType('whatsapp')" target="_blank"
+       [href]="'https://web.whatsapp.com/send?text='+item.url">
+      <mat-icon svgIcon="whatsapp"></mat-icon>
+    </a>
+  </div>

@@ -1,1 +1,90 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~materialize-css/sass/components/color';
+@import './custom-theme';
+
+
+$secondary-color: #194F87;
+$roboto-font-path: "/assets/fonts/roboto/";
+@import "~materialize-css/sass/materialize.scss";
+
+$primary: #194F87;
+$secondary: #FEFEFE;
+$tertiary: #326396;
+$my-lighten:#4080ff;
+
+textarea {
+  border: 1px solid $primary;
+  height: 15rem;
+  line-height: 30px;
+}
+.atila-blue {
+  color: $primary;
+}
+.atila-blue-light {
+  color: $my-lighten;
+}
+.atila-blue-light-bg {
+  background-color: $my-lighten;
+}
+
+
+.profile-header .mat-card-header-text{
+  display: none !important;
+  //width: 0%;
+}
+
+
+blockquote {
+  border-left: 5px solid $primary !important;
+}
+
+html {
+  background-color: $primary;
+}
+
+body {
+  background-color: white;
+}
+
+#bootstrap-override {
+  ul:not(.browser-default) > li {
+    list-style-type: initial;
+  }
+}
+
+
+a:not([href]):not([tabindex]).btn {
+  color: white;
+}
+a:not([href]):not([tabindex]):not(.btn) {
+  color: #039be5;
+  cursor: pointer;
+}
+
+a:not(.btn):hover {
+  text-decoration: underline !important;
+}
+
+.inner-html ul:not(.browser-default) > li {
+  list-style-type: initial !important;
+}
+
+.wysiywyg-editor {
+  border: 1px solid #039be5;
+}
+
+
+mat-progress-bar {
+  margin: 1% 0;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+  color: #039be5;
+  margin-right: 24px;
+  -webkit-transition: color .3s ease;
+  transition: color .3s ease;
+  text-transform: uppercase;
+}
+
+strong {
+  font-weight: bold !important;
+}
