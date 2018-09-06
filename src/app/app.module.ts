@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -10,7 +10,7 @@ import {
   MatCheckboxModule,
   MatDialogModule,
   MatFormFieldModule,
-  MatIconModule,
+  MatIconModule, MatIconRegistry,
   MatInputModule,
   MatMenuModule,
   MatProgressBarModule,
@@ -27,11 +27,17 @@ import {TruncatePipe} from './_pipes/truncate.pipe';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../environments/environment';
 import {ServiceWorkerModule} from '@angular/service-worker';
+import {NavbarComponent} from './navbar/navbar.component';
+import {FooterComponent} from './footer/footer.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     PreviewComponent,
+    NavbarComponent,
+    FooterComponent,
     TypeaheadComponent,
     ShareItemComponent,
     TruncatePipe
@@ -57,8 +63,14 @@ import {ServiceWorkerModule} from '@angular/service-worker';
     MatCardModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('../assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+  }
+}

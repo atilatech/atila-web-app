@@ -1,0 +1,51 @@
+@import '../../styles.scss';
+
+nav .brand-logo {
+  font-family:Cambria;
+  font-size:28px;
+  color:$primary;
+}
+
+.atila-blue {
+    color:$primary !important;
+  }
+
+button:focus{
+  background-color: #C1BCBC;
+}
+
+li a {
+  color:$primary !important;
+}
+button.mat-fab.mat-accent {
+  background-color: white;
+}
+
+.far-left{
+  margin-left: -3%;
+}
+
+.far-right{
+  margin-right: -3%;
+}
+
+#mobile-login {
+  margin-left: 3%;
+}
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 480px) {
+
+  nav {
+    padding-bottom: 18%;
+  }
+
+  .my-offset-ln7 {
+    margin-left: -7%;
+  }
+
+
+  .far-right{
+    margin-right: -10%;
+  }
+}
+
