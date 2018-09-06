@@ -1,6 +1,9 @@
 # AtilaWebApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+This repository contains the open sourced code for [atila.ca](https://atila.ca). More code from the production web app will be added on an ongoing basis.
+
+# Getting Started
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 5.2.2.
 
 ## Development server
 
