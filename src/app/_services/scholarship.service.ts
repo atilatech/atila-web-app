@@ -14,6 +14,7 @@ export class ScholarshipService {
   form_data: any;
 
   public scholarshipsPreviewUrl = environment.apiUrl + 'scholarship-preview/';
+  public scholarshipSlugUrl = environment.apiUrl + 'scholarship-slug/';
   constructor(public http: HttpClient) {
   }
 
@@ -24,7 +25,6 @@ export class ScholarshipService {
 
     return Promise.resolve(this.form_data);
   }
-
 
   public extractData(res: HttpResponse<any>) {
 
@@ -38,21 +38,19 @@ export class ScholarshipService {
     return Observable.throw(error);
   }
 
-
   getScholarshipPreviewForm(): Promise<any>{
 
     return Promise.resolve(this.form_data);
   }
 
-  getScholarshipPreviewList(form_data): Observable<Scholarship[]> {
-
-    return this.http.post(this.scholarshipsPreviewUrl, form_data)
+  getPaginatedscholarships(form_data, page): Observable<Scholarship[]> {
+    return this.http.post(`${this.scholarshipsPreviewUrl}?page=${page}/`, form_data)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getPaginatedscholarships(form_data, page): Observable<Scholarship[]> {
-    return this.http.post(`${this.scholarshipsPreviewUrl}?page=${page}/`, form_data)
+  getBySlug(slug: string) {
+    return this.http.get(`${this.scholarshipSlugUrl}?slug=${slug}/`)
       .map(this.extractData)
       .catch(this.handleError);
   }
