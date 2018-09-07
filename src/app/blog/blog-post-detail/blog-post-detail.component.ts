@@ -3,9 +3,6 @@ import {BlogPostService} from "../../_services/blog-post.service";
 
 import {BlogPost} from "../../_models/blog-post";
 
-import {UserProfileService} from '../../_services/user-profile.service';
-
-
 import {ActivatedRoute, ActivationEnd, Router} from '@angular/router';
 
 import { MatSnackBar} from '@angular/material';
@@ -31,7 +28,6 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
 
   constructor(public route: ActivatedRoute,
               public router: Router,
-              public userProfileService: UserProfileService,
               public blogPostService: BlogPostService,
               public snackBar: MatSnackBar,
               public searchService: SearchService,)
@@ -39,10 +35,6 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
                 this.routerChanges = router.events.subscribe(data=>{
                   if(data instanceof ActivationEnd){
 
-
-                    if (this.userProfileService.viewHistoryChanges) {
-                      this.userProfileService.viewHistoryChanges.unsubscribe();
-                    }
                     this.slugUsername = data.snapshot.params['username'];
                     this.slugTitle = data.snapshot.params['slug'];
 
