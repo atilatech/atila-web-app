@@ -72,6 +72,8 @@ import {SafeHtmlPipe} from '../_pipes/safe-html.pipe';
     TypeaheadComponent,
     ShareItemComponent,
     MatIconModule,
+    CardGenericComponent,
+    SafeHtmlPipe,
   ],
 })
 export class SharedModule {
