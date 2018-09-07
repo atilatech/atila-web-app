@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgForm, NgModel} from '@angular/forms';
 import {prettifyKeys, toTitleCase} from '../_shared/utils';
 import {MASTER_LIST_EVERYTHING} from '../_models/constants';
+import {Router} from '@angular/router';
+import { ScholarshipService } from "../_services/scholarship.service";
 //import {GeocoderAddressComponent} from '@types/googlemaps'
 
 //import 'googlemaps';
@@ -342,7 +344,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
   public locationPlaceHolder = 'City, Province or Country';
   public subscriber: any = {};
 
-  constructor() {
+  constructor(
+    public scholarshipService: ScholarshipService,
+    public router: Router,
+  ) {
 
   }
 
@@ -429,16 +434,9 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     // Removed for demo purposes
 
-    /*
+
     this.subscriber.action = 'preview_scholarship';
     this.subscriber.preview_choices = this.model;
-
-
-    this.firebaseService.saveUserAnalytics(this.subscriber,'preview_scholarship')
-      .then(res => {
-        console.log('res')
-        },
-        err => {console.log(err)});
 
     if (this.model.previewMode == 'universalSearch') {
       if (!this.model.searchString) {
@@ -456,8 +454,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
         delete this.model.errors;
       }
     }
-
-
 
 
     // TODO What's the proper way of saving form values with Google Analytics
@@ -478,7 +474,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
       })  // use promise to ensure that form is saved to Service before navigating away
 
-    */
+
   }
 
   addSubscriber(event?: KeyboardEvent) {
