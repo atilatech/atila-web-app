@@ -1,0 +1,122 @@
+<div class="container">
+    <div *ngIf="blogPost">
+
+            <span class="col-sm-12">
+              <h3 style="text-align: center; "> {{blogPost.title}} </h3>
+            </span>
+
+            <div class="col-sm-12 col-md-10  offset-md-1">
+                <div *ngIf="!blogPost.published" style="font-weight: bold; "> | Unpublished</div>
+                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block"/>
+
+              <div class="card">
+                  <div *ngIf="blogPost.user" style="margin: 3%">
+                  <a routerLink="/profile/{{blogPost.user.username}}">
+                    <div class="chip">
+                      <img [src]="blogPost.user.profile_pic_url"
+                           alt="Blog Author">
+                      <a routerLink="/profile/{{blogPost.user.username}}">
+                      {{blogPost.user.first_name}} {{blogPost.user.last_name}}
+                      </a>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-action" style="padding-bottom: 25px">
+                  <a (click)="likeContent(blogPost)" [ngStyle]="{'background-color': blogPost.alreadyLiked ? '#4080FF' : 'transparent'}"
+                     class="btn-floating halfway-fab waves-effect waves-light left interactive-btn" style="left: 15px; bottom: 1px">
+                    <mat-icon class="material-icons interactive-icon md-36"  [ngStyle]="{'color': blogPost.alreadyLiked ? 'white' : '#4080FF'}"
+                              svgIcon="thumb-up-outline"></mat-icon>
+                  </a>
+                  <a (click)="likeContent(blogPost)" class="btn-floating halfway-fab waves-effect waves-light left white-text"
+                     style="left: 70px; bottom: 1px">
+                    <span class="btn-text">{{blogPost.up_votes_count}}</span>
+                  </a>
+
+                  <span (click)="scrollToComments()" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 1px">
+                    <i class="material-icons md-36 ">comment</i>
+                  </span>
+                  <span (click)="scrollToComments()" class="btn-floating halfway-fab waves-effect waves-light left white-text"
+                        style="left: 180px; bottom: 1px">
+                  <!--<span class="btn-text">10</span>-->
+                  <span class="btn-text">{{blogPost.metadata['comments_count']}}</span>
+                </span>
+                <app-share-item [item]="{title: blogPost.title,
+                url:'https://atila.ca/blog/'+blogPost.user.username+'/'+blogPost.slug+'/',
+                id: blogPost.id, source:'blog_detail',type:'blog'}"></app-share-item>
+                </div>
+
+              </div>
+              <hr>
+
+                <!--<div [froalaView]="blogPost.body" ></div>-->
+              <div class="blog-text inner-html" [innerHTML]="blogPost.body | safeHtml"></div>
+
+            </div>
+
+
+      <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
+      <div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
+        <p>No Subscribing in demo mode. See <a href="https://atila.ca" target="_blank">
+          Full Atila Site</a> for all features
+        </p>
+      </div>
+
+      <!--No subcribing in demo mode.-->
+      <!--<div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">-->
+        <!--<p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/blog">blogs</a>,-->
+          <!--<a routerLink="/forum">forum posts</a>, <a routerLink="/">scholarships</a> and new product features.-->
+
+          <!--<span *ngIf="subscriber.response" style="color: green">-->
+                  <!--<br>-->
+                  <!--{{subscriber.response}}-->
+            <!--</span>-->
+        <!--</p>-->
+
+
+        <!--<mat-form-field class="browser-default col-sm-3 ">-->
+          <!--&lt;!&ndash; <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> &ndash;&gt;-->
+          <!--<input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"-->
+                 <!--placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">-->
+        <!--</mat-form-field>-->
+        <!--<a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>-->
+
+
+      <!--</div>-->
+
+      <div *ngIf="relatedItems" class="row">
+        <div style="width: 100%; margin-left: 5%" class="row"><h5>Related</h5> <span style="font-size: smaller; color: #194F87">Beta</span></div>
+        <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-md-4">
+          <div (click)="logRelatedItemClick(item)">
+            <app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>
+            <app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>
+          </div>
+        </div>
+    </div>
+
+      <div class="col-sm-11 comment-box">
+        <h5 > Comments </h5>
+
+        <p>No Comments in demo mode. See <a href="https://atila.ca" target="_blank">
+          Full Atila Site</a> for all features
+        </p>
+    </div>
+
+    </div>
+
+  <!-- Loading progress circle -->
+  <div *ngIf="!blogPost" class="preloader-background">
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
