@@ -27,6 +27,8 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {RouterModule} from '@angular/router';
 import {TypeaheadComponent} from './typeahead/typeahead.component';
 import {ShareItemComponent} from './share-item/share-item.component';
+import {CardGenericComponent} from '../card-generic/card-generic.component';
+import {SafeHtmlPipe} from '../_pipes/safe-html.pipe';
 
 @NgModule({
   imports: [
@@ -58,7 +60,9 @@ import {ShareItemComponent} from './share-item/share-item.component';
     TruncatePipe,
     GooglePlaceDirective,
     TypeaheadComponent,
-    ShareItemComponent],
+    ShareItemComponent,
+    CardGenericComponent,
+    SafeHtmlPipe],
   exports: [
     TruncatePipe,
     GooglePlaceDirective,
@@ -68,6 +72,8 @@ import {ShareItemComponent} from './share-item/share-item.component';
     TypeaheadComponent,
     ShareItemComponent,
     MatIconModule,
+    CardGenericComponent,
+    SafeHtmlPipe,
   ],
 })
 export class SharedModule {

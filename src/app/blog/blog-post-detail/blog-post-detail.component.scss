@@ -1,0 +1,64 @@
+@import '../../../styles';
+
+
+:host /deep/ .videowrapper {
+  float: none;
+  clear: both;
+  width: 100%;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  height: 0;
+}
+.videowrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mat-card-actions{
+  margin-left: 1%;
+}
+.blog-text {
+  overflow-x: scroll;
+}
+
+.mat-card{
+  margin-top: 3%;
+}
+
+.btn-floating {
+  left: 15px;
+  bottom: 10px;
+  background-color: $my-lighten;
+}
+
+.btn-text {
+  font-size: larger;
+  padding-left: 30%;
+  margin-top: 0;
+}
+
+.interactive-icon {
+  margin-left: 9px;
+  margin-top: 6px;
+
+}
+
+.interactive-btn {
+  border: 1px solid $my-lighten;
+}
+
+ul:not(.browser-default) {
+  padding-left: 0;
+  list-style-type: disc;
+}
+
+@media only screen and (max-width: 500px){
+  .container {
+    width: 100%;
+  }
+}
+

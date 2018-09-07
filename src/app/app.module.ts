@@ -30,6 +30,8 @@ import {FooterComponent} from './footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {SharedModule} from './_shared/shared.module';
+import {BlogPostService} from './_services/blog-post.service';
+import {SearchService} from './_services/search.service';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,10 @@ import {SharedModule} from './_shared/shared.module';
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    BlogPostService,
+    SearchService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
