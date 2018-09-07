@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  atilaMicroservicesApiUrl: 'http://localhost:5000/',
 };
 
 /*
