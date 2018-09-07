@@ -1,18 +1,23 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import 'rxjs/add/operator/toPromise';
+import {Observable} from 'rxjs/Observable';
+import {Scholarship} from '../_models/scholarship';
+import {environment} from '../../environments/environment.prod';
 
 @Injectable()
 export class ScholarshipService {
 
   form_data: any;
 
+  public scholarshipsPreviewUrl = environment.apiUrl + 'scholarship-preview/';
   constructor(public http: HttpClient) {
   }
 
+  preventSortByDoubleCount= false;
   setScholarshipPreviewForm(user_data: any): Promise<any> { //made a promise so we can wait til function
     // is called before navigating url
     this.form_data = user_data;
@@ -20,4 +25,35 @@ export class ScholarshipService {
     return Promise.resolve(this.form_data);
   }
 
+
+  public extractData(res: HttpResponse<any>) {
+
+
+    return res || { };
+
+  }
+
+  public handleError (error: HttpResponse<any> | any) {
+    // In a real world app, you might use a remote logging infrastructure
+    return Observable.throw(error);
+  }
+
+
+  getScholarshipPreviewForm(): Promise<any>{
+
+    return Promise.resolve(this.form_data);
+  }
+
+  getScholarshipPreviewList(form_data): Observable<Scholarship[]> {
+
+    return this.http.post(this.scholarshipsPreviewUrl, form_data)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getPaginatedscholarships(form_data, page): Observable<Scholarship[]> {
+    return this.http.post(`${this.scholarshipsPreviewUrl}?page=${page}/`, form_data)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 }

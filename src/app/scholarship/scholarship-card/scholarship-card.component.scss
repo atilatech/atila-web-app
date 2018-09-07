@@ -1,0 +1,63 @@
+@import '../../../styles';
+
+//mat-card-content{
+//  height: auto;
+//  overflow: scroll;
+//}
+
+.btn-floating {
+  left: 15px;
+  bottom: 10px;
+  background-color: $my-lighten;
+}
+.interactive-btn {
+  border: 1px solid $my-lighten;
+}
+.scholarship-preview-count{
+  opacity:0.75;
+  //font-family:FuturaStd-Book;
+  font-size:20px;
+  color:#000000;
+  text-align:center;
+  display: inline-block;
+}
+
+.registered-title{
+  text-align: center;
+  max-height: 2.8em;
+}
+
+.card-image{
+  display: block;
+  max-width:150px !important;
+  max-height:150px !important;
+  width: auto;
+  height: auto;
+}
+
+
+.header-image {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-scholarship-default-image.jpeg?alt=media&token=cd789758-3400-43d5-9ea7-d2facf709ea2');
+  background-size: cover;
+}
+
+//button:focus, button:hover{
+//  background-color: #C1BCBC;
+//}
+
+.mat-simple-snackbar-action {
+  color: $my-lighten;
+}
+
+
+a {
+  color: #4080ff !important;
+}
+a:hover {
+  color: #7cc7ff !important;
+}
+
+.card {
+  padding-left: 3%;
+  margin-bottom: 10%;
+}

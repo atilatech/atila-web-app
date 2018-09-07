@@ -1,0 +1,170 @@
+<div [ngbPopover]="popContent" popoverTitle="Try Search" #trySearch="ngbPopover"
+     placement="bottom" triggers="manual" class="popover-anchor" style="width: 100%">
+</div>
+
+<ng-template #popContent >Try
+  <a routerLink="/search" [queryParams]="{q_cta: 'popover',q_source:'scholarships_list'}"><b> Search</b></a>.
+  Enter your term and find matching scholarships. <a (click)="toggleSearchModal({'toggle':true})">Close</a>
+</ng-template>
+
+<div *ngIf="contentFetched">
+
+    <!--TODO: Why is this line giving me an error. <h5 > You qualify for <strong>{{ scholarships.length}}</strong> Scholarships</h5>-->
+    <br/>
+
+    <div *ngIf="form_data">
+
+        <div class="row center container">
+
+          <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.
+          Try another search.</h2>
+
+        </div>
+
+        <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
+      <!--TODO: add back subscription removed in open mode-->
+        <!--<div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">-->
+          <!--<p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/">scholarships</a>, <a routerLink="/blog">blogs</a>, and-->
+            <!--<a routerLink="/forum">forum posts</a>, and new product features.-->
+
+            <!--<span *ngIf="subscriber.response" style="color: green">-->
+                  <!--<br>-->
+                  <!--{{subscriber.response}}-->
+            <!--</span>-->
+          <!--</p>-->
+
+
+          <!--<mat-form-field class="browser-default col-sm-3 ">-->
+            <!--&lt;!&ndash; <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> &ndash;&gt;-->
+            <!--<input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"-->
+                   <!--placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">-->
+          <!--</mat-form-field>-->
+          <!--<a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>-->
+
+
+        <!--</div>-->
+
+
+        <div class="row filter-div">
+
+          <ng-template #tryFilter>
+            <p class="col-sm-12 col-md-6" style="font-size: larger"> <span style="font-weight: bold">New!</span> Filter using your Profile</p>
+          </ng-template>
+
+          <mat-form-field class="col-sm-6 col-md-3">
+            <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+            <mat-select  [(ngModel)]="form_data.filter_by_user"  id="filter_by_user" name="filter_by_user" placeholder="Filter By:" (change)="getScholarshipPreview()">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let filterType of ['major','post_secondary_school','city','province','country']" [value]="filterType">{{prettifyKeys(filterType)}} </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+          <div class="col-sm-6 col-md-3" *ngIf="form_data.filter_by_user">
+            <input class="browser-default" id="filter_by_user_show_eligible_only" type="checkbox" [(ngModel)]="form_data.filter_by_user_show_eligible_only" name="filter_by_user_show_eligible_only"  (change)="getScholarshipPreview()">
+            <label for="filter_by_user_show_eligible_only" data-error="Invalid input">Only Show Eligible Scholarships?</label>
+          </div>
+          <p *ngIf="transformFilterDisplay(form_data.filter_by_user); else tryFilter" class="col-sm-12 col-md-6"> Showing Scholarships for:
+            <span style="font-weight: bold">{{transformFilterDisplay(form_data.filter_by_user) | json}}</span>
+            <span *ngIf="!isLoggedIn">(<a routerLink="/login">Login</a> to use your actual {{prettifyKeys(form_data.filter_by_user)}})</span>
+          </p>
+
+
+        </div>
+
+        <!--<div class="row filter-div" *ngIf="!environment.production || userProfile.is_atila_admin">-->
+          <!--<mat-slide-toggle [checked]="userProfile.is_debug_mode" (change)="userProfile.is_debug_mode=!userProfile.is_debug_mode;-->
+          <!--toggleDebugMode($event)">Debug Mode </mat-slide-toggle>-->
+           <!--{{userProfile.is_debug_mode}}-->
+        <!--</div>-->
+        <br>
+
+        <div class="offset-md-2">
+
+          <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
+
+          <mat-form-field class="col-sm-6 col-md-3">
+            <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+            <mat-select  [(ngModel)]="form_data.sort_by"  id="sort_by" name="sort_by" placeholder="Sort By:" (change)="getScholarshipPreview(1,{'change_sort_by':true})">
+              <ng-container  *ngIf="isLoggedIn; else unRegisteredSortOptions" >
+                <mat-option *ngFor="let sortType of ['relevance_new','relevance','deadline','surprise_me','only_automated','currently_open']" [value]="sortType">
+                  {{prettifyKeys(sortType)}}
+                </mat-option>
+              </ng-container>
+
+              <ng-template #unRegisteredSortOptions>
+                <mat-option *ngFor="let sortType of ['relevance','deadline','surprise_me','only_automated','currently_open']" [value]="sortType">{{prettifyKeys(sortType)}} </mat-option>
+              </ng-template>
+
+            </mat-select>
+          </mat-form-field>
+          <div class="offset-1">
+
+            <p>Like Atila? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>
+
+            <p> Something Wrong?
+              <a routerLink="/contact" [queryParams]="{'atila_ref':'scholarships_list'}">Tell Us</a>
+            </p>
+          </div>
+        </div>
+        <br>
+
+
+        <!--Unregistered user content -->
+        <div>
+
+          <div class="row">
+            <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10  offset-md-1" style="margin-bottom: -5%">
+              <ng-template [ngIf]="i<3">
+                <app-scholarship-card [scholarship]="scholarship"
+                                      [metadata]="{'form_data':form_data}"></app-scholarship-card>
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="center col-sm-8 offset-sm-2 offset-md-1">
+
+            <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
+            <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
+
+          </div>
+
+          <div class="row center">
+            <p class="text-align-center offset-md-2">Are we missing a scholarship you want? You can easily <a routerLink="/scholarship/add" title="Add Scholarship">Add a Scholarship </a> to Atila or
+              <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
+                 target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
+          </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Loading progress circle -->
+<div *ngIf="isLoading" class="preloader-background">
+  <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template *ngIf="contentFetched && scholarship_count==0">
+  <div class="container">
+    <h2 class="scholarship-preview-count my-dark-blue-text">No available scholarships for the specified profile.</h2>
+    <!--TODO: Add page for scholarship advice-->
+
+    <h4 class="scholarship-preview-count my-dark-blue-text"><a routerLink="/register">Learn how to qualify for more scholarships.</a></h4>
+  </div>
+</ng-template>
+
+
+

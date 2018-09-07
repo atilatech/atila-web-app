@@ -1,0 +1,103 @@
+@import '../../../styles';
+
+mat-card{
+  margin-bottom: 7%;
+}
+
+mat-card-content{
+  height: 100px;
+  overflow: hidden;
+}
+.my-mat-card-image{
+  height: 200px;
+}
+
+.mat-card-header{
+  height: 90px;
+  margin-bottom: 3%
+}
+.mat-card-actions{
+  padding: 0px;
+  height: 40px;
+}
+.scholarship-preview-count{
+    opacity:0.75;
+    //font-family:FuturaStd-Book;
+    font-size:20px;
+    color:#000000;
+    text-align:center;
+    display: inline-block;
+}
+
+.registered-title{
+  text-align: center;
+}
+.mat-button{
+  min-width: 65px;
+}
+
+a:hover:not(.btn){
+  text-decoration: underline;
+}
+
+.btn {
+margin: 10px;
+background-color: $my-lighten;
+}
+
+
+div.container {
+  width: 85%;
+}
+
+.logo-img {
+height: 60px;
+}
+
+
+.scholarship-card {
+  margin: 5%;
+}
+
+
+.my-mat-card-image{
+  display: block;
+  margin-top: -5px !important;
+  max-height: 200px;
+}
+
+mat-card:hover {
+  color: black;
+  background-color: #DDD;
+  left: .1em;
+}
+
+.header-image {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-scholarship-default-image.jpeg?alt=media&token=cd789758-3400-43d5-9ea7-d2facf709ea2');
+  background-size: cover;
+}
+
+@media (max-width: 990px) {
+  .popover-anchor {
+    margin-left: -20%;
+    //margin-top: -3%;
+  }
+
+}
+
+@media (max-width: 576px){
+
+  a.demo-btn, .register-btn,.filter-div{
+    margin: 0 0 3% 5%;
+    width: 90%;
+  }
+}
+@media (min-width: 768px) {
+  //.offset-md-2,  not working for filter-div
+  .filter-div {
+    margin-left: 16.666667%;
+  }
+}
+
+
+

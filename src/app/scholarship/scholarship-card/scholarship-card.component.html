@@ -1,0 +1,71 @@
+<div class="card horizontal" [id]="'scholarship-card-'+scholarship.id" [@hideCard]="hideCard" #scholarshipCard>
+  <div class="card-action">
+    <a [routerLink]="['/scholarship', scholarship.slug]" class="card-title" (click)="clickHandler($event)">
+      {{scholarship.name | truncate:40}}</a>
+
+    <div class="card-subtitle text-muted">
+      <div *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</div>
+      <div *ngIf="scholarship.extra_questions && scholarship.extra_questions.funding_amount_varies" class="card-text">Amount Varies</div>
+      <div *ngIf="scholarship.metadata['not_open_yet'];else hasDeadline">Opens: {{scholarship.open_date | date:'mediumDate' }}
+        <i class="material-icons" placement="bottom" ngbTooltip="Save Scholarship to get notified when it opens.">info_outline</i></div>
+      <ng-template #hasDeadline>
+        <div *ngIf="scholarship.deadline && !this.scholarship['metadata']['deadline_tbd']">Deadline: {{ scholarship.deadline | date:'mediumDate' }}</div>
+        <div *ngIf="scholarship.deadline && this.scholarship['metadata']['deadline_tbd']">Deadline: {{scholarship.metadata.deadline_tbd}}</div>
+      </ng-template>
+    </div>
+
+  </div>
+  <div class="row" style="margin-bottom: 0">
+    <div class="card-image col-sm-4">
+      <a [routerLink]="['/scholarship', scholarship.slug]">
+        <img [src]="scholarship.img_url">
+      </a>
+    </div>
+    <div class="card-content col-sm-8" >
+      <p> {{scholarship.description | truncate:250}}</p>
+    </div>
+  </div>
+  <a ngbTooltip="Save Scholarship" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue"title="Save Scholarship"
+     (click)="addToMyScholarship(scholarship)" [ngStyle]="{'background-color': alreadySaved ? '#4080ff' : 'gray'}" style="left: 15px; bottom: 10px">
+    <i class="material-icons">bookmark</i>
+  </a>
+  <div class="card-action dropdown show">
+    <a class="btn-floating  interactive-btn halfway-fab waves-effect" title="Share" (click)="webShare()" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="left: 70px; bottom: 10px">
+      <i class="material-icons">share</i>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <a class="dropdown-item" target="_blank" (click)="logShareType('email')" [href]="'mailto:?body=Have you seen this scholarship from Atila\?%0A%0Ahttps://atila.ca/scholarship/'+scholarship.slug+'&subject=Scholarship From Atila - '+ scholarship.name" >
+        <mat-icon svgIcon="email"></mat-icon>
+      </a>
+      <a class="dropdown-item" (click)="logShareType('facebook-messenger')" target="_blank" [href]="'http://www.facebook.com/dialog/send?app_id=401124503672116&link=https://atila.ca/scholarship/'+scholarship.slug+'&redirect_uri=https://atila.ca/'">
+          <mat-icon svgIcon="facebook-messenger"></mat-icon>
+      </a>
+      <a class="dropdown-item" (click)="logShareType('facebook')" target="_blank" [href]="'https://www.facebook.com/sharer.php?display=popup&quote=Have you seen this scholarship from Atila? : '+scholarship.name+'+&u=https://atila.ca/scholarship/'+scholarship.slug+'&app_id=401124503672116'" rel="noopener">
+        <mat-icon svgIcon="facebook"></mat-icon>
+      </a>
+      <a class="dropdown-item"  (click)="logShareType('whatsapp')" target="_blank"
+         [href]="'https://web.whatsapp.com/send?text=https://atila.ca/scholarship/'+scholarship.slug">
+        <mat-icon svgIcon="whatsapp"></mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-footer" *ngIf="userScholarship">
+    <small class="text-muted"><pre>{{userScholarship | json}}</pre></small>
+  </div>
+  <a *ngIf=scholarship.is_automated [routerLink]="['/scholarship', scholarship.slug]" title="Automated Scholarship"
+     style="left: 150px; bottom: 10px" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue" triggers="mouseenter" placement="bottom"
+     [ngbPopover]="automationInfoPopover" popoverTitle="Automated Scholarship"  (click)="clickHandler($event)">
+    <i class="material-icons automate-tag">tag_faces</i></a>
+
+  <a (click)="hideCard=true;logNotInterested()" title="Not interested in this Scholarship"
+     [ngStyle]="{'left': scholarship.is_automated ? '200px' : '150px'}"
+     style="bottom: 10px" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue"
+     ngbTooltip="Not interested in this Scholarship">
+    <i class="material-icons automate-tag">visibility_off</i></a>
+</div>
+
+<ng-template #automationInfoPopover>Automatically <a [routerLink]="['/scholarship', scholarship.slug]">apply</a> for this scholarship in one click!
+  <a  routerLink="/blog/atila/what-is-atila">More Info</a>.</ng-template>
+
+
