@@ -24,7 +24,6 @@ import {PreviewComponent} from './preview/preview.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../environments/environment';
-import {ServiceWorkerModule} from '@angular/service-worker';
 import {NavbarComponent} from './navbar/navbar.component';
 import {FooterComponent} from './footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -46,7 +45,6 @@ import {TeamComponent} from './team/team.component';
   imports: [
     SharedModule,
     NgbModule.forRoot(),
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     BrowserModule,
     AppRoutingModule,
     MatDialogModule,

@@ -10,7 +10,6 @@ import {
 } from '@angular/router'
 import { Title } from '@angular/platform-browser';
 import {environment} from '../environments/environment';
-import {SwUpdate} from '@angular/service-worker';
 import {MatSnackBar} from '@angular/material';
 
 // import 'google.analytics'
@@ -27,7 +26,6 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   constructor(titleService: Title,
               public router: Router,
-              public swUpdate: SwUpdate,
               public snackBar: MatSnackBar,
   ) {
 
@@ -51,24 +49,6 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    if (environment.production) {
-
-      // check service worker to see if new version of app is available
-      if (this.swUpdate.isEnabled) {
-
-        this.swUpdate.available.subscribe(() => {
-
-          const snackBarRef = this.snackBar.open('New version available', 'Load New Version');
-
-          snackBarRef.onAction().subscribe(
-            () => {
-              location.reload();
-            }
-          );
-
-        });
-      }
-    }
   }
 
   ngAfterViewInit(): void {
