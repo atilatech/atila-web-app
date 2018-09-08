@@ -1,0 +1,35 @@
+<div class="col-sm-12 row team-container" >
+
+  <mat-card class="profile-header col-sm-12 col-md-2-3" *ngFor="let member of teamData">
+    <mat-card-header class="row">
+      <!-- NOTE Mat card header text is hidden in css -->
+      <div class="header-image center-block" mat-card-avatar [ngStyle]="{'background-image': 'url(' + member.img_url + ')'}"></div>
+
+      <div  class="center center-block">
+        <mat-card-title><h4>{{member.first_name}} {{member.last_name}} </h4></mat-card-title>
+        <mat-card-subtitle class="title"><h5>{{member.position}}</h5></mat-card-subtitle>
+        <a *ngIf="member.username" routerLink="/profile/{{member.username}}" class="btn-link">Profile |</a>
+        <a *ngIf="member.link_url" class="btn-link" href="{{member.link_url}}">{{member.link_type}}</a>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p style="font-size: larger">
+       {{member.description_1}}
+        <br>
+        <span class="inner-html" [innerHTML]="member.description_2"></span>
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <p style="font-size: larger" class="col-sm-12 col-md-8 offset-md-2">
+    If you would like to join the team or help out in some way,
+    <a  href="mailto:info@atila.ca">send an email </a> to <a  href="mailto:info@atila.ca">info@atila.ca</a> with your resume and/or links to cool stuff you've done.
+
+    <br>
+    <!--Also, Briefly mention why you would like to join and how you would like to add value to the team.-->
+
+    <!--<br>-->
+    <!--Coding experience is preferred but anyone who can add value is welcome.-->
+  </p>
+</div>

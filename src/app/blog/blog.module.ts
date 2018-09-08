@@ -27,9 +27,7 @@ import {
 
 import {HttpClientModule} from '@angular/common/http';
 
-import {AngularFireModule} from 'angularfire2';
 import {environment} from '../../environments/environment';
-import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {SharedModule} from '../_shared/shared.module';
 
 
@@ -39,7 +37,6 @@ import {SharedModule} from '../_shared/shared.module';
     SharedModule,
     BlogRoutingModule,
     NgbModule.forRoot(),
-    AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
