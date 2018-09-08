@@ -198,20 +198,4 @@
 </div>
 </body>
 
-<script>
-  if ('serviceWorker' in navigator) {
-    console.log("Service Worker in index.html");
-    window.addEventListener('load', () => {
-      console.log("on page Load Service Worker in index.html");
-    navigator.serviceWorker.register('/ngsw-worker.js')
-      .then(function(registration) {
-        console.log('Service Worker registered index.html',registration);
-      })
-      .catch(function(err) {
-        console.log('Service Worker registration failed index.html: ', err);
-      });
-  });
-  }
-
-</script>
 </html>
