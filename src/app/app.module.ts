@@ -33,6 +33,7 @@ import {SharedModule} from './_shared/shared.module';
 import {BlogPostService} from './_services/blog-post.service';
 import {SearchService} from './_services/search.service';
 import {ScholarshipService} from './_services/scholarship.service';
+import {TeamComponent} from './team/team.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {ScholarshipService} from './_services/scholarship.service';
     PreviewComponent,
     NavbarComponent,
     FooterComponent,
+    TeamComponent,
   ],
   imports: [
     SharedModule,
