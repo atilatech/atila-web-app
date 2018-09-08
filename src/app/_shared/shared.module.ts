@@ -22,8 +22,6 @@ import {
 } from '@angular/material';
 import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AngularFireDatabaseModule} from 'angularfire2/database';
-import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {RouterModule} from '@angular/router';
 import {TypeaheadComponent} from './typeahead/typeahead.component';
 import {ShareItemComponent} from './share-item/share-item.component';
@@ -34,7 +32,6 @@ import {SafeHtmlPipe} from '../_pipes/safe-html.pipe';
   imports: [
     CommonModule,
     NgbModule,
-    AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
@@ -68,7 +65,6 @@ import {SafeHtmlPipe} from '../_pipes/safe-html.pipe';
     GooglePlaceDirective,
     RouterModule,
     NgbTypeaheadModule,
-    AngularFirestoreModule,
     TypeaheadComponent,
     ShareItemComponent,
     MatIconModule,

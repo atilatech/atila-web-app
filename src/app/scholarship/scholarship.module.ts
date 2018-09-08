@@ -27,7 +27,6 @@ import {
 
 import {HttpClientModule} from '@angular/common/http';
 
-import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {SharedModule} from '../_shared/shared.module';
 import {ScholarshipDetailComponent} from './scholarship-detail/scholarship-detail.component';
 import {ScholarshipCardComponent} from './scholarship-card/scholarship-card.component';
@@ -39,7 +38,6 @@ import {ScholarshipsListComponent} from './scholarships-list/scholarships-list.c
     SharedModule,
     NgbModule,
     ScholarshipRoutingModule,
-    AngularFireDatabaseModule,
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
