@@ -32,6 +32,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {SharedModule} from './_shared/shared.module';
 import {BlogPostService} from './_services/blog-post.service';
 import {SearchService} from './_services/search.service';
+import {ScholarshipService} from './_services/scholarship.service';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import {SearchService} from './_services/search.service';
   providers: [
     BlogPostService,
     SearchService,
+    ScholarshipService
   ],
   bootstrap: [AppComponent]
 })

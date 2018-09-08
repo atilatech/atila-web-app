@@ -1,0 +1,108 @@
+@import '../../../styles';
+
+.scholarship-image {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+}
+
+button:focus, button:hover{
+  background-color: #C1BCBC;
+}
+
+
+button.mat-fab.mat-accent {
+  background-color: white;
+}
+
+.comment-card{
+    margin-bottom: 5%;
+}
+.container {
+    margin-top: 50px;
+}
+
+.rating {
+    display: inline-block;
+}
+
+.date-created {
+    display: inline-block;
+  font-size: large;
+}
+
+.sub-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-card {
+    margin: 10px 0px;
+}
+
+.review-title {
+    font-size: 1.5em;
+    margin: 0px 15px;
+    display: inline-block;
+}
+
+.review-user {
+    font-size: 0.9em;
+
+}
+
+.review-rating {
+    display: inline-block;
+}
+
+.review-user-section {
+    display: block;
+    width: 100%;
+    float: left;
+}
+
+.review-header-section {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.mat-card-header {
+    display: inline-block;
+}
+
+.review-card-content {
+    display: inline-block;
+    width: 90%;
+}
+
+.review-card-vote {
+    display: inline-block;
+}
+
+.scholarship-image {
+  max-height: 200px;
+}
+
+.vote-arrow {
+    display: block;
+    text-align: center
+}
+
+.vote-button {
+    display: inline-block;
+    min-width: 25px;
+}
+
+.vote-button:focus {
+    background-color: grey;
+}
+
+.comment-box{
+    border: 1px black solid;
+    padding-bottom: 0.5%;
+}
+.inner-html {
+  overflow-x: scroll;
+}
+

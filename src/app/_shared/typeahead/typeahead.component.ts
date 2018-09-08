@@ -35,7 +35,6 @@ export class TypeaheadComponent implements OnInit {
               public instance: NgbTypeahead,
   ) {
 
-    console.log('TypeaheadComponent', this);
     config.focusFirst = !this.metadata['disableFocusFirst'];
   }
 
@@ -53,7 +52,6 @@ export class TypeaheadComponent implements OnInit {
     if (!this.metadata['noPlaceHolder']) {
       this.metadata['placeholder'] = this.metadata['placeholder'] || prettifyKeys(this.metadata['key'])
     }
-    console.log('TypeaheadComponent', this);
 
   }
 

@@ -7,6 +7,11 @@ const routes: Routes = [
   path: 'blog',
   loadChildren: '../blog/blog.module#BlogModule'
 },
+  { path: 'scholarships',   redirectTo: '/scholarship', pathMatch: 'prefix' },
+  {
+    path: 'scholarship',
+    loadChildren: '../scholarship/scholarship.module#ScholarshipModule'
+  },
   {path: '**', component: PreviewComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}}
 ];
 

@@ -1,0 +1,173 @@
+<div class="container" *ngIf="scholarship">
+  <div class="row">
+    <div class="col-sm-12">
+      <img class="scholarship-image" [src]="scholarship.img_url"/>
+    </div>
+    <div class="row">
+      <h3 style="width: 100%">{{scholarship.name}}</h3>
+      <div class="sub-header row">
+
+        <div class="date-created col col-sm-12 col-md-8">
+          <span *ngIf="scholarship.metadata['not_open_yet'];else hasDeadline"><strong>Opens:</strong> {{scholarship.open_date | date:'mediumDate' }}</span>
+          <ng-template #hasDeadline><strong>Deadline:</strong>
+            <span *ngIf="!scholarship['metadata']['deadline_tbd']">
+                {{scholarship.deadline | date:'longDate'}}</span>
+            <span *ngIf="scholarship['metadata']['deadline_tbd']">TBA</span>
+          </ng-template>
+
+          <strong>
+            <p *ngIf="scholarship.funding_amount > 0">Amount: {{scholarship.funding_amount |
+              currency:'USD':'symbol':'1.0-0'}}</p>
+          </strong>
+
+          <div *ngIf="scholarshipOwner">
+            Added by: <a routerLink="/profile/{{scholarshipOwner.username}}">{{scholarshipOwner.first_name}}
+            {{scholarshipOwner.last_name}}</a>
+          </div>
+
+          <a [routerLink]="['/scholarship/edit', scholarship.slug]"> Edit Scholarship <br></a>
+          <!--<a *ngIf="scholarship.owner!=userId" [routerLink]="['/scholarship/edit', scholarship.slug]"> Suggest/View Edits </a><br>-->
+          <!--<span class="show-on-small" style="max-height: 0"><br></span>-->
+
+          <a target="_blank" *ngIf="scholarship.scholarship_url" href="{{scholarship.scholarship_url}}"> Visit
+            Scholarship Website <br></a>
+          <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a>
+          <!--<a target="_blank" *ngIf="scholarship.local_form_location.indexOf('scholartree') !== -1;" href="https://scholartree.ca">Source</a> <br>-->
+
+          <div>
+            <p>Save for Later</p>
+            <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
+            <button mat-fab (click)="notAvailableOpenModeSnackbar()">
+              <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}" class="atila-blue" aria-hidden="true"
+                        aria-label="Save">bookmark
+              </mat-icon>
+            </button>
+
+
+            <app-share-item [item]="{title: scholarship.name,
+                url:'https://atila.ca/scholarship/'+scholarship.slug+'/',
+                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}"
+                            [metadata]="{'shareItemStyle':{'left': '55px','bottom': '30px', 'zoom':1.4}}"></app-share-item>
+          </div>
+
+          <p> Something Wrong?
+            <a routerLink="/contact" [queryParams]="{'atila_ref':'scholarship_detail'}">Tell Us</a>
+          </p>
+
+        </div>
+
+
+        <div class="col-sm-12 col-md-4">
+
+          <span *ngIf="scholarship.is_automated">
+            <button mat-raised-button (click)="getOrCreateApp()"
+                    style="background-color: #4080ff; min-height: 60px; min-width: 200px"
+                    class="white-text">Apply now</button>
+          </span>
+
+          <span *ngIf="!scholarship.is_automated">
+            <p>Request Automation and we'll automate the scholarship for you.</p>
+            <button mat-raised-button (click)="requestAutomation()"
+                    style="background-color: #4080ff; min-height: 60px" class="white-text">Request Automation</button>
+          </span>
+
+        </div>
+
+      </div>
+      <br>
+      <div class="divider" id="bootstrap-override"></div>
+      <p style="width: 90%">{{scholarship.description}}</p>
+      <br>
+
+      <div *ngIf="scholarship.extra_criteria"><span style="font-size: larger">Other Criteria</span>
+
+        <div *ngFor="let key of Object.keys(scholarship.extra_criteria)">
+          <p><strong>{{key}}:</strong>{{scholarship.extra_criteria[key]}}</p>
+        </div>
+
+      </div>
+      <br>
+
+      <div *ngIf="relatedItems" class="row">
+        <div style="width: 100%; margin-left: 5%" class="row"><h5>Related</h5> <span
+          style="font-size: smaller; color: #194F87">Beta</span></div>
+        <div *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-md-4">
+          <div (click)="logRelatedItemClick(item)">
+            <!--<app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
+            <!--<app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
+            <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}"
+                              [cardStyle]="{'max-height': '200px', 'overflow-y': 'hidden'}"></app-card-generic>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
+      <!--<div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
+        <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/blog"
+                                                                                         style="text-decoration: underline; color: #68b9ff">blogs</a>
+          <a routerLink="/forum" style="text-decoration: underline; color: #68b9ff">forum posts</a>, <a routerLink="/">scholarships</a>
+          and new product features.
+
+          <span *ngIf="subscriber.response" style="color: green">
+                  <br>
+                  {{subscriber.response}}
+            </span>
+        </p>
+
+
+        <mat-form-field class="browser-default col-sm-3 ">
+          &lt;!&ndash; <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> &ndash;&gt;
+          <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0" name="email"
+                 id="emailid"
+                 placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
+        </mat-form-field>
+        <a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; "
+           (click)="addSubscriber()">Subscribe</a>
+
+
+      </div>-->
+
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h4>More Information</h4>
+
+      <div class="inner-html" [innerHTML]="scholarship.criteria_info | safeHtml"></div>
+
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-12 forum-box">
+      <h5> Comments </h5>
+
+      <p>No Comments in open mode. See <a href="https://atila.ca" target="_blank">
+        Full Atila Site</a> for all features
+      </p>
+
+    </div>
+  </div>
+
+
+</div>
+
+<!-- Loading progress circle -->
+<div *ngIf="!scholarship" class="preloader-background">
+  <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
