@@ -16,6 +16,12 @@
 
         <div class="row center container">
 
+          <h4 class="registered-title">
+            <p *ngIf="viewAsUser" style="font-size: larger; color: green">Viewing As: {{viewAsUser.first_name}}</p>
+            <span *ngIf="userProfile && !viewAsUser">{{userProfile.first_name}}, </span>You can get
+            <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.
+          </h4>
+
           <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.
           Try another search.</h2>
 
@@ -121,7 +127,7 @@
             </div>
           </div>
 
-          <div class="center col-sm-8 offset-sm-2 offset-md-1">
+          <div class="center col-sm-8 offset-sm-2 offset-md-2">
 
             <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
             <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>

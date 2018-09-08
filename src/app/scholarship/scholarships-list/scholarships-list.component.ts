@@ -10,6 +10,7 @@ import {environment} from '../../../environments/environment';
 
 import {EDUCATION_FIELDS, EDUCATION_LEVEL} from '../../_models/constants';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-scholarships-list',
@@ -30,6 +31,12 @@ export class ScholarshipsListComponent implements OnInit {
   show_scholarship_funding: boolean = false;
   environment = environment;
 
+
+  pageNo: number = 1;
+  paginationLen: number = 12;
+  pageLen: number;
+  pages = [1];
+
   subscriber: any = {};
 
   locationData = {
@@ -45,9 +52,8 @@ export class ScholarshipsListComponent implements OnInit {
   @ViewChild('trySearch') public popover: NgbPopover;
 
   constructor(public scholarshipService: ScholarshipService,
-              public activatedRoute: ActivatedRoute,
-              public router: Router,
-              public location: Location,) {
+              public snackBar: MatSnackBar,
+              public router: Router,) {
   }
 
 
@@ -90,15 +96,6 @@ export class ScholarshipsListComponent implements OnInit {
         }]
       }
 
-      if (this.isLoggedIn) {
-        const url = this
-          .router
-          .createUrlTree([{page: page}], {relativeTo: this.activatedRoute})
-          .toString();
-
-        this.location.go(url);
-      }
-
       else {
         page = 1;
       }
@@ -114,9 +111,10 @@ export class ScholarshipsListComponent implements OnInit {
         .subscribe(
           res => {
 
-            if (options['change_sort_by']) {
-              this.scholarshipService.preventSortByDoubleCount = true;
+            if(options['change_sort_by']) {
+              this.scholarshipService.preventSortByDoubleCount=true;
             }
+            this.saveScholarships(res);
             this.contentFetched = true;
             this.isLoading = false;
 
@@ -130,6 +128,50 @@ export class ScholarshipsListComponent implements OnInit {
           () => {
           },
         );
+    }
+  }
+
+  saveScholarships(res: any){
+
+    this.scholarships = res['data'];
+    this.scholarship_count = res['length'];
+    this.total_funding = res['funding'];
+
+    if (this.total_funding){
+      this.show_scholarship_funding = true;
+    }
+
+    if(this.form_data.filter_by_user) {
+
+      let resultsPreview = [];
+
+      for (let i = 0; i < Math.min(5,this.scholarships.length); i++) {
+        resultsPreview.push({id: this.scholarships[i]['id'], name: this.scholarships[i]['name']})
+      }
+      let filterByUserResult = {
+        form_data: this.form_data,
+        scholarship_count: this.scholarship_count,
+        total_funding: this.total_funding,
+        results_preview: resultsPreview
+      };
+      // this.firebaseService.saveUserAnalytics(filterByUserResult,'filter_by_user_results')
+    }
+
+    this.viewAsUser = res['view_as_user'];
+
+
+    if (this.viewAsUser) {
+    }
+
+    if (res['view_as_user_error']) {
+      this.snackBar.open(res['view_as_user_error'],'',{duration:3000})
+    }
+
+    this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
+
+    this.pages = [];
+    for (let i = 1; i <= this.pageLen; i++) {
+      this.pages.push(i);
     }
   }
 
