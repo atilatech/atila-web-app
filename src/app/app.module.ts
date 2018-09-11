@@ -34,6 +34,7 @@ import {BlogPostService} from './_services/blog-post.service';
 import {SearchService} from './_services/search.service';
 import {ScholarshipService} from './_services/scholarship.service';
 import {TeamComponent} from './team/team.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {TeamComponent} from './team/team.component';
     NavbarComponent,
     FooterComponent,
     TeamComponent,
+    NotFoundComponent,
   ],
   imports: [
     SharedModule,
