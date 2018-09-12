@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {PreviewComponent} from '../preview/preview.component';
 import {TeamComponent} from '../team/team.component';
+import {NotFoundComponent} from '../not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
     loadChildren: '../scholarship/scholarship.module#ScholarshipModule'
   },
   {path: 'team', component: TeamComponent, data: {title: 'Team - Atila'}},
-  {path: '**', component: PreviewComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}}
+  {path: '', component: PreviewComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}},
+  {path: '**', component: NotFoundComponent, data: {title: 'Not Found - Atila | Scholarships Automated. The Right Way'}}
 ];
 
 @NgModule({
