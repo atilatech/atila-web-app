@@ -34,6 +34,7 @@ import {SearchService} from './_services/search.service';
 import {ScholarshipService} from './_services/scholarship.service';
 import {TeamComponent} from './team/team.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import {ServiceWorkerModule} from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
   imports: [
     SharedModule,
     NgbModule.forRoot(),
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     BrowserModule,
     AppRoutingModule,
     MatDialogModule,
