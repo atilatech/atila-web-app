@@ -22,3 +22,4 @@ if ('serviceWorker' in navigator && environment.production) {
         console.log("Service Worker registration completed main.ts", registration);
       });
   });
+}

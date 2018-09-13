@@ -17,3 +17,7 @@ just_deploy() {
  aws s3 sync dist/ s3://demo.atila.ca;
  aws cloudfront create-invalidation --distribution-id E3BPZYNBZT54L5 --paths "/*";
 }
+
+start_dev() {
+ng serve -o --delete-output-path=false
+}
