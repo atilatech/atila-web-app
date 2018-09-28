@@ -44,7 +44,7 @@ export class ScholarshipService {
   }
 
   getPaginatedscholarships(form_data, page): Observable<Scholarship[]> {
-    return this.http.post(`${this.scholarshipsPreviewUrl}?page=${page}/`, form_data)
+    return this.http.get(`https://api.myjson.com/bins/dx1dc`)
       .map(this.extractData)
       .catch(this.handleError);
   }

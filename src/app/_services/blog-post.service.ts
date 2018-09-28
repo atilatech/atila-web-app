@@ -23,7 +23,7 @@ export class BlogPostService {
   }
 
   getBySlug(username:string, slug: string) {
-    return this.http.get(`${this.blogUrl}blog/${username}/${slug}/`)
+    return this.http.get(`https://api.myjson.com/bins/v5ow0`)
       .map(res => res)
       .catch(err => Observable.throw(err));
   }
