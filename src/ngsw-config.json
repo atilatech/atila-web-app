@@ -9,6 +9,12 @@
         "/index.html",
         "/*.css",
         "/*.js"
+      ],
+      "urls": [
+        "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d",
+        "https://lh6.googleusercontent.com/U1oHmeuzUcMbPLHFhpDHc_8KsFWq7IX_jE6kUBl1svTSnffIukAjJ0QDgfXJCdZ_rONXiZzhtNnz3CrFMDEnrIrMc5MpnWcSuUfEURbNRFM9lxYPN6qDMSMHPqC02h9o0pO9UlUP",
+        "https://atila-7.herokuapp.com/api/blog/blog-slug/tomiwa/how-i-got-interviews-at-google-facebook-and-bridgewater/",
+        "https://api.myjson.com/bins/18mldc"
       ]
     }
   }, {
@@ -20,5 +26,19 @@
         "/assets/**"
       ]
     }
-  }]
-}
+  }],
+  "dataGroups": [
+    {
+      "name": "demo.atila.ca",
+      "urls": [
+        "https://atila-7.herokuapp.com/api/**",
+        "https://api.myjson.com/bins/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 3,
+        "maxAge": "7d",
+        "strategy": "freshness"
+      }
+    }]
+
+    }
