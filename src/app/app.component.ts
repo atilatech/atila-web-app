@@ -51,13 +51,13 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    if (true) {
+    if (environment.production) {
 
       // check service worker to see if new version of app is available
       if (this.swUpdate.isEnabled) {
 
         this.swUpdate.available.subscribe(() => {
-
+          console.log('this.swUpdate',this.swUpdate);
           const snackBarRef = this.snackBar.open('New version available', 'Load New Version');
 
           snackBarRef.onAction().subscribe(
