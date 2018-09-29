@@ -11,6 +11,7 @@ import {
 import { Title } from '@angular/platform-browser';
 import {environment} from '../environments/environment';
 import {MatSnackBar} from '@angular/material';
+import {SwUpdate} from "@angular/service-worker";
 
 // import 'google.analytics'
 declare const ga: any;
@@ -27,8 +28,9 @@ export class AppComponent implements AfterViewInit, OnInit {
   constructor(titleService: Title,
               public router: Router,
               public snackBar: MatSnackBar,
+              public swUpdate: SwUpdate,
   ) {
-
+    console.log({swUpdate});
     // Set title when route changes
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -49,6 +51,24 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
+    if (true) {
+
+      // check service worker to see if new version of app is available
+      if (this.swUpdate.isEnabled) {
+
+        this.swUpdate.available.subscribe(() => {
+
+          const snackBarRef = this.snackBar.open('New version available', 'Load New Version');
+
+          snackBarRef.onAction().subscribe(
+            () => {
+              location.reload();
+            }
+          );
+
+        });
+      }
+    }
   }
 
   ngAfterViewInit(): void {
