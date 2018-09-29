@@ -9,6 +9,17 @@ export class TeamComponent implements OnInit {
 
   teamData: any[] = [
     {
+      "first_name": "Kanye",
+      "last_name": "West",
+      "username": "kanyewest",
+      "position": "Head Yeezy",
+      "img_url": 'https://cdn.ipetitions.com/user-images/petitions/we-want-the-old-kanye-west-back/sdNsHNTsTCyZHyUtD2jQ_image.jpg',
+      "description_1": "I'm the CEO and head honcho of Yeezy",
+      "description_2": "I'm also the CEO and head honcho of Life",
+      "link_type": "Website",
+      "link_url": "http://kanyewest.com"
+    },
+    {
       "first_name": "Tomiwa",
       "last_name": "Ademidun",
       "username": "tomiwa",
