@@ -7,7 +7,7 @@ import {ActivatedRoute, ActivationEnd, Router} from '@angular/router';
 
 import { MatSnackBar} from '@angular/material';
 import {SearchService} from '../../_services/search.service';
-import {genericItemTransform, IPDATA_KEY} from '../../_shared/utils';
+import {genericItemTransform} from '../../_shared/utils';
 import {Subscription} from 'rxjs/Subscription';
 
 
