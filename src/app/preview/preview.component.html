@@ -1,3 +1,10 @@
+<div [ngbPopover]="popContent" popoverTitle="Try Search" #trySearch="ngbPopover"
+     placement="bottom" triggers="manual" class="popover-anchor" style="width: 100%">
+</div>
+
+<ng-template #popContent >Try
+  <a routerLink="/search" [queryParams]="{q_cta: 'popover',q_source:'scholarships_list'}"><b> Search</b></a>.
+  Enter your term and find matching scholarships. <a (click)="toggleSearchModal({'toggle':true})">Close</a></ng-template>
 <div class="container-fluid">
 
 
@@ -6,20 +13,19 @@
       <form #previewForm="ngForm" (ngSubmit)="onSubmit(previewForm)" class="col-sm-12 white-placeholder white-underline">
 
         <h1 style="margin-bottom: 0" class="form-header">Find Your Scholarships</h1>
-        <h2 class="form-header" style="margin-bottom: 0;font-size: larger;">Automatically find and apply to scholarships in one click.</h2>
-        <div *ngIf="model.previewMode=='universalSearch'" style="margin-bottom: -22px; font-size: x-large" class="row preview-questions">
+        <h4 *ngIf="model.errors" class="form-header" style="margin-bottom: 0;font-size: x-large;">
+          {{model.errors}}
+        </h4>
+        <div *ngIf="model.previewMode=='universalSearch'" class="row justify-content-center preview-questions">
 
           <div class="search-box">
-            <!--<mat-form-field class="col-sm-12">-->
-              <!--<input style="font-size: 50px; caret-color: white" matInput placeholder="Enter a Search Term" [(ngModel)]="model.searchString" name="searchString" autofocus>-->
-            <!--</mat-form-field>-->
 
             <div class="col-sm-12 input-field">
               <app-typeahead [(model)]="model.searchString" [dataset]="MASTER_LIST_EVERYTHING"
-                             [inputStyles]="{'font-size':'50px', 'caret-color': 'white', 'color': 'white'}"
-                             [metadata]="{'placeholder':'Enter a Search Term', 'key': 'searchString','disableFocusFirst': true, 'matInput': true, 'noPlaceHolder': true}"
-                             [labelStyles]="{'font-size':'50px', 'caret-color': 'white', 'color': 'white'}"
-                              (typeaheadSelectedEvent)="typeaheadEvent($event)">
+                             [inputStyles]="{'font-size':'30px', 'caret-color': 'white', 'color': 'white'}"
+                             [metadata]="{'placeholder':'Enter a search term', 'key': 'searchString','disableFocusFirst': true, 'matInput': true, 'noPlaceHolder': true}"
+                             [labelStyles]="{'font-size':'30px', 'caret-color': 'white', 'color': 'white'}"
+                             (typeaheadSelectedEvent)="typeaheadEvent($event)">
               </app-typeahead>
             </div>
             <div class="col-sm-12">
@@ -40,45 +46,8 @@
 
         </div>
 
-        <div *ngIf="model.previewMode=='classicFilter'" style="margin-bottom: -22px; font-size: x-large" class="row preview-questions">
-
-          <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
-          <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
-          <mat-form-field class="browser-default col-sm-12 col-md-4 location-div">
-            <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-            <input matInput type="text" class="form-control" style="padding-bottom: 1.37%" inputStyle="" required [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="model.location.name" #LocationCtrl="ngModel"
-                   appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)" >
-          </mat-form-field>
-
-          <mat-form-field class="form-group input-field col-sm-12 col-md-4">
-            <mat-select [(ngModel)]="model.education_level" name="education_level" id="education_level" multiple=true required placeholder="Education Level">
-              <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field class="form-group input-field col-sm-12 col-md-4">
-            <mat-select [(ngModel)]="model.education_field" name="education_field" id="education_field" multiple=true required placeholder="Education Field">
-              <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-        </div>
-        <br>
-        <mat-slide-toggle (change)="model.previewMode = model.previewMode=='classicFilter'? 'universalSearch': 'classicFilter'" checked="true">
-          <span class="white-text">
-          Preview Mode:
-          <strong>
-            {{prettifyKeys(model.previewMode)}}
-          </strong>
-          </span>
-        </mat-slide-toggle>
-
-        <p *ngIf="model.errors" style="color: white">
-          {{model.errors}}
-        </p>
         <div class="" style="text-align: center;">
           <button class=" col-sm-8 offset-sm-2 waves-effect waves-light btn scholarship-btn" type="submit">Get My Scholarships</button>
-          <a class=" col-sm-8 waves-effect waves-light btn scholarship-btn" routerLink="/applications/demo" style="padding-top: 1.2em; color: white">Try The Live Demo</a>
         </div>
         <br>
 
@@ -86,149 +55,124 @@
     </div>
   </div>
 
-  <!-- Blog Posts Demo-->
-  <div class="container row">
-    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/blog"> Blog posts </a></h1>
-    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Learn from Other student’s stories </h5>
+  <!-- How it Works-->
+  <div class="container">
+    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/blog/atila/what-is-atila"> How Atila Works </a></h1>
+    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> <a routerLink="register">Make an account.</a> Find Scholarships. Apply </h5>
     <div class="row">
-      <div *ngFor="let blog of blogs; let i = index" class="col-lg-4 blog-box">
+      <div class="card col-lg-4 col-sm-12">
+        <h3>1. Make an Account 👆🏽</h3>
+        <p><a routerLink="register">Register</a> for a free account in 15 seconds.</p>
+      </div>
+      <div class="card col-lg-8 col-sm-12">
 
-        <div class="card">
-          <div class="card-content " style="min-height: 225px">
-              <span class="card-title responsive-height">
-                <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">{{blog.title | truncate:75}}</a>
-                <span *ngIf="!blog.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
-              </span>
-            <span *ngIf="blog.user">
-                <a routerLink="/profile/{{blog.user.username}}">
-                  <div class="chip">
-                    <img [src]="blog.user.profile_pic_url"
-                         alt="Author">
-                    <a routerLink="/profile/{{blog.user.username}}">
-                    {{blog.user.first_name}} {{blog.user.last_name}}
-                    </a>
-                  </div>
-                </a>
-              </span>
-          </div>
+        <img src="" id="registration-gif"
+             alt="Atila Registration Walkthrough" title="Atila Registration Walkthrough"
+             class="landing-page-gif landing-page-gif-desktop">
+      </div>
+    </div>
+    <div class="row">
+      <div class="card col-lg-4 col-sm-12">
+        <h3>2. Create Your Profile 🙎🏾‍♀️</h3>
+        <p>Tell us the schools and programs you are interested in.</p>
+      </div>
+      <div class="card col-lg-8 col-sm-12">
 
-          <div class="card-image">
-            <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">
-              <img [src]="blog.header_image_url" style="height: 200px">
-            </a>
-          </div>
-          <div class="card-content " style="min-height: 345px">
-            <p style="font-size: larger">{{blog.description| truncate:280}}</p>
-          </div>
+        <img src="" id="create-profile-gif"
+             alt="Create Your Profile" title="Create Your Profile"
+             class="landing-page-gif landing-page-gif-mobile">
+      </div>
+    </div>
+    <div class="row">
+      <div class="card col-lg-4 col-sm-12">
+        <h3>3. Find Your Scholarships 👀</h3>
+        <p>Get matched with scholarships that are customized just for you based on your profile.</p>
+      </div>
+      <div class="card col-lg-8 col-sm-12">
 
-          <div class="card-action">
-            <a (click)="likeContent(blog)" [ngStyle]="{'background-color': blog.alreadyLiked ? '#4080FF' : 'transparent'}"
-               class="btn-floating halfway-fab waves-effect waves-light left interactive-btn" style="left: 15px; bottom: 10px">
-              <mat-icon class="material-icons interactive-icon md-36"  [ngStyle]="{'color': blog.alreadyLiked ? 'white' : '#4080FF'}"
-                        svgIcon="thumb-up-outline"></mat-icon></a>
-            <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
-               style="left: 70px; bottom: 10px">
-              <p class="btn-text">{{blog.up_votes_count}}</p>
-            </a>
-            <a  routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
-              <i class="material-icons md-36">comment</i></a>
-            <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
-               style="left: 180px; bottom: 10px">
-              <p class="btn-text">{{blog.metadata['comments_count']}}</p>
-            </a>
-            <app-share-item [item]="{title: blog.title,
-                url:'https://atila.ca/blog/'+blog.user.username+'/'+blog.slug+'/',
-                id: blog.id, source:'blog_list',type:'blog'}" [metadata]="{'shareItemStyle': {'left': '225px','bottom': '10px'} }"></app-share-item>
-
-          </div>
-        </div>
-
+        <img src="" id="view-scholarships-gif"
+             alt="Find Your Scholarships" title="Find Your Scholarships"
+             class="landing-page-gif landing-page-gif-mobile">
       </div>
     </div>
   </div>
   <hr/>
 
-  <!-- Forum Posts Demo-->
-  <div class="container row">
-    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/forum"> Forums </a></h1>
-    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Ask questions and get answers from other students </h5>
+  <!-- More Features-->
+  <div class="container">
+    <h1 style="margin-top: 0; text-align: center" class="col-col-sm-12 atila-blue">
+      <a routerLink="/blog/atila/what-is-atila"> More Features </a>
+    </h1>
+    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue">
+      Stay Woke. <a routerLink="essay">Read Essays. </a> <a routerLink="applications/demo">Automate Applications.</a></h5>
     <div class="row">
-      <div *ngFor="let forum of forums; let i = index" class="col-lg-4 forum-box" style="font-size: larger">
+      <div class="card col-lg-4 col-sm-12">
+        <h3>1. Get Notified when Scholarships are Due 🕐</h3>
+        <p>Save scholarships you are interested in and we'll let you know 7 days and 24 hours before the scholarship is due.</p>
+      </div>
+      <div class="card col-lg-8 col-sm-12">
 
-        <div class="card ">
-          <div class="card-content " style="min-height: 513px">
-            <span class="card-title"><a routerLink="/forum/{{forum.slug}}">{{forum.title | truncate:140}}</a></span>
-            <span *ngIf="forum.user"><a routerLink="/profile/{{forum.user.username}}">
-          <div class="chip">
-            <img [src]="forum.user.profile_pic_url"
-                 alt="Authorr">
-            <a routerLink="/profile/{{forum.user.username}}">
-            {{forum.user.first_name}} {{forum.user.last_name}}
-            </a>
-          </div>
-          </a>
+        <img src="" id="scholarship-notifications-gif"
+             alt="Get Notified when Scholarships are Due" title="Get Notified when Scholarships are Due"
+             class="landing-page-gif landing-page-gif-mobile">
+      </div>
+    </div>
+    <div class="row">
+      <div class="card col-lg-4 col-sm-12">
+        <h3>2. Read Other student's <a routerLink="essay">Essays</a> 👫</h3>
+        <p>Read <a routerLink="essay">essays and past applications</a> from other students for scholarships and schools you are interested in.</p>
+      </div>
+      <div class="card col-lg-8 col-sm-12">
 
-          </span>
-            <p *ngIf="forum.starting_comment" style="white-space: pre-line">{{forum.starting_comment.text | truncate:280}}</p>
-          </div>
-          <div class="card-action">
-            <a  routerLink="/forum/{{forum.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
-              <i class="material-icons md-36">comment</i></a>
-            <a routerLink="/forum/{{forum.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
-               style="left: 180px; bottom: 10px">
-              <p class="btn-text">{{forum['metadata']['comments_count']}}</p>
-            </a>
-            <app-share-item [item]="{title: forum.title,
-                url:'https://atila.ca/forum/'+forum.slug+'/',
-                id: forum.id, source:'forum_list',type:'forum'}" [metadata]="{'shareItemStyle': {'left': '225px','bottom': '10px'} }"></app-share-item>
+        <img src="" id="view-essays-gif"
+             alt="Read Other student's Essays" title="Read Other student's Essays"
+             class="landing-page-gif landing-page-gif-mobile">
+      </div>
+    </div>
+    <div class="row">
+      <div class="card col-lg-4 col-sm-12">
+        <h3>3. <a routerLink="applications/demo">Automate</a> Scholarship Application 💪🏿</h3>
+        <p>Automate the form filling process for web and pdf scholarship applications. Atila will even write your application email for you. 😯</p>
+      </div>
+      <div class="card col-lg-8 col-sm-12">
 
-          </div>
-        </div>
+        <img src="" id="application-automation-gif"
+             alt="Automate Scholarship Application" title="Automate Scholarship Application"
+             class="landing-page-gif landing-page-gif-mobile">
+      </div>
+    </div>
+  </div>
+  <hr/>
 
+  <!-- Blog Posts Demo-->
+  <div class="container row">
+    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/blog"> Blog </a></h1>
+    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Learn from other students' stories </h5>
+    <div class="row">
+      <div  *ngFor="let blog of blogs; let i = index; first as isFirst;" class="col-md-4">
+        <app-card-generic [item]="blog"
+                          [metadata]="{hideDescription: blog.image,showImageInPreviewMode: true}"
+                          [cardStyle]="{'height': '510px', 'overflow-y': 'hidden'}"
+                          [titleMaxLength]="75"
+                          [cardTitleStyle]="{height: '200px'}"> </app-card-generic>
       </div>
     </div>
   </div>
   <hr/>
 
   <!-- Essay Posts Demo-->
+  <!--[imageStyle]="{ max-height: 200px, width: auto, margin-left: 20%, }"-->
   <div class="container row">
     <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/essay"> Essays </a></h1>
-    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Read the essays got students acceptance to top schools and won major scholarships. </h5>
+    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Read the essays that got students acceptance to top schools and win major scholarships. </h5>
     <div class="row">
-      <div *ngFor="let essay of essays; let i = index" class="col-lg-4 " style="font-size: larger">
-
-        <div class="card ">
-          <div class="card-content " style="min-height: 430px">
-            <span class="card-title"><a routerLink="/essay/{{essay.user.username}}/{{essay.slug}}">{{essay.title | truncate:140}}</a></span>
-            <span *ngIf="!essay.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
-            <span *ngIf="essay.user"><a routerLink="/profile/{{essay.user.username}}">
-          <div class="chip">
-            <img [src]="essay.user.profile_pic_url"
-                 alt="Authorr">
-            <a routerLink="/profile/{{essay.user.username}}">
-            {{essay.user.first_name}} {{essay.user.last_name}}
-            </a>
-          </div>
-          </a>
-
-          </span>
-            <p *ngIf="essay.description" style="white-space: pre-line">{{essay.description | truncate:280}}</p>
-          </div>
-          <div class="card-action">
-            <a  routerLink="/essay/{{essay.user.username}}/{{essay.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
-              <i class="material-icons md-36">comment</i></a>
-            <a routerLink="/essay/{{essay.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
-               style="left: 180px; bottom: 10px">
-              <p class="btn-text">{{essay['metadata']['comments_count']}}</p>
-            </a>
-
-            <app-share-item [item]="{title: essay.title,
-                url:'https://atila.ca/essay/'+ essay.user.username +'/'+essay.slug+'/',
-                id: essay.id, source:'essay_list',type:'essay'}" [metadata]="{'shareItemStyle': {'left': '225px','bottom': '10px'} }"></app-share-item>
-
-          </div>
-        </div>
-
+      <div  *ngFor="let essay of essays; let i = index; first as isFirst;" class="col-md-4">
+        <app-card-generic [item]="essay"
+                          [previewDescriptionLength]="150"
+                          [metadata]="{hideDescription: false, showImageInPreviewMode: true,showEssayImage: true}"
+                          [imageStyle]="{'max-height': '200px', width: 'auto', 'margin-left': '20%'}"
+                          [cardStyle]="{'height': '550px', 'overflow-y': 'hidden'}" [titleMaxLength]="35"
+                          [cardTitleStyle]="{height: '100px'}"> </app-card-generic>
       </div>
     </div>
   </div>
@@ -266,4 +210,3 @@
 
   </div>
 </div>
-
