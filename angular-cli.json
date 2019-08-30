@@ -10,7 +10,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico",
+        "favicon-b.ico",
         "manifest.json"
       ],
       "index": "index.html",
