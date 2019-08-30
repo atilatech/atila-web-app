@@ -4,12 +4,8 @@ import {NgForm, NgModel} from '@angular/forms';
 import {ScholarshipService} from '../_services/scholarship.service';
 
 import {Router} from '@angular/router';
-import {GoogleAnalyticsEventsService} from '../_services/google-analytics-events.service';
 import {MatDialog} from '@angular/material';
-import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
-import {MyFirebaseService} from '../_services/myfirebase.service';
 import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
-import {AuthService} from '../_services/auth.service';
 import {genericItemTransform, prettifyKeys, toTitleCase} from '../_shared/utils';
 import {MASTER_LIST_EVERYTHING} from '../_models/constants';
 //import {GeocoderAddressComponent} from '@types/googlemaps'
@@ -335,11 +331,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   constructor(
     public scholarshipService: ScholarshipService,
-    public firebaseService: MyFirebaseService,
     public router: Router,
-    public googleAnalyticsEventService: GoogleAnalyticsEventsService,
     public dialog: MatDialog,
-    public authService: AuthService,
   ) {
 
   }
@@ -465,19 +458,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.firebaseService.saveUserAnalytics(this.subscriber, 'preview_scholarship')
-      .then(res => {
-        },
-        err => {
-          console.log(err)
-        });
-
-
-    // TODO What's the proper way of saving form values with Google Analytics
-
-    this.googleAnalyticsEventService.emitEvent('userCategory', 'previewAction', JSON.stringify(this.model.location), 1)
-
-
     this.scholarshipService.setScholarshipPreviewForm(this.model)
       .then(
         res => {
@@ -506,33 +486,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
     else {
       this.subscriber.dialog_open_event = 'ButtonClick';
     }
-
-
-    this.subscriber.utm_source = 'preview_scholarships';
-    const dialogRef = this.dialog.open(SubscriberDialogComponent, {
-      width: '300px',
-      data: this.subscriber,
-    });
-
-    dialogRef.afterClosed().subscribe(
-      result => {
-        this.subscriber = result;
-
-        if (this.subscriber) {
-          this.subscriber.dialog_submit_event = result.dialog_submit_event || 'ButtonClick';
-
-          this.firebaseService.addSubscriber(this.subscriber)
-            .then(res => {
-                this.subscriber.response = 'Successfully subscribed to Atila 😄.';
-              },
-              err => this.subscriber.response = 'Add Subscriber error, try again.')
-        }
-        else {
-          this.subscriber = {};
-          this.subscriber.response = 'Please enter subscription information 😄.';
-        }
-
-      });
 
 
   }

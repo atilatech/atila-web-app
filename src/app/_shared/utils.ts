@@ -1,5 +1,3 @@
-
-
 export function prettifyKeys(rawKey: string) {
 
   return rawKey.slice(0, 1).toUpperCase() +
@@ -38,64 +36,73 @@ export function toTitleCase(str) {
 
 export function genericItemTransform (item) {
 
-    if (item.hasOwnProperty('deadline')) {
-      item.type = 'scholarship'
-    }
-    else if (item.hasOwnProperty('starting_comment')){
-      item.type = 'forum'
-    }
-    else if (item.hasOwnProperty('header_image_url')) {
-      item.type = 'blog'
-    }
+  item.type = getItemType(item);
 
-    switch(item.type) {
-      case 'scholarship':
-        item = {
-          title: item.name,
-          description: item.description,
-          id: item.id,
-          slug: `/scholarship/${item.slug}/`,
-          image: item.img_url,
-          type: item.type,
-        };
-        break;
-      case 'blog':
-        item = {
-          title: item.title,
-          description: item.description,
-          image: item.header_image_url,
-          id: item.id,
-          slug: `/blog/${item.user.username}/${item.slug}/`,
-          type: item.type,
-        };
-        break;
-      case 'forum':
-        item = {
-          title: item.starting_comment ? item.starting_comment.title || item.title : item.title,
-          description: item.starting_comment ?  item.starting_comment.text || item.text: item.text,
-          id: item.id,
-          slug: `/forum/${item.slug}/`,
-          type: item.type,
-        };
-        break;
-      default:
-        // code block
-    }
+  switch(item.type) {
+    case 'scholarship':
+      item = {
+        title: item.name,
+        description: item.description,
+        id: item.id,
+        slug: `/scholarship/${item.slug}/`,
+        image: item.img_url,
+        type: item.type,
+      };
+      break;
+    case 'essay':
+      item = {
+        title: item.title,
+        description: item.description,
+        id: item.id,
+        slug: `/essay/${item.user.username}/${item.slug}/`,
+        image: `${item.user.profile_pic_url}`,
+        type: item.type,
+        user: item.user,
+      };
+      break;
+    case 'blog':
+      item = {
+        title: item.title,
+        description: item.description,
+        image: item.header_image_url,
+        id: item.id,
+        slug: `/blog/${item.user.username}/${item.slug}/`,
+        type: item.type,
+        user: item.user,
+      };
+      break;
+    case 'forum':
+      item = {
+        title: item.starting_comment ? item.starting_comment.title || item.title : item.title,
+        description: item.starting_comment ?  item.starting_comment.text || item.text: item.text,
+        id: item.id,
+        slug: `/forum/${item.slug}/`,
+        type: item.type,
+      };
+      break;
+    default:
+    // code block
+  }
 
-    return item;
+  return item;
 
 }
 
-export function cleanHtml(rawHtml: string) {
 
-  // https://stackoverflow.com/questions/19356398/remove-style-attribute-on-style-tag#19564598
-  console.log('rawHtml',rawHtml);
-  rawHtml = rawHtml.replace(/(<[^>]+) style=".*?"/gi, '$1');
+export function getItemType(item) {
 
-  rawHtml = rawHtml.replace(/(<[^>]+) class=".*?"/gi, '$1');
-  rawHtml = rawHtml.replace(/<iframe.+?<\/iframe>/gi, '');
-
-  return rawHtml
+  let itemType: string;
+  if (item.hasOwnProperty('deadline')) {
+    itemType = 'scholarship'
+  }
+  else if (item.hasOwnProperty('starting_comment')) {
+    itemType = 'forum'
+  }
+  else if (item.hasOwnProperty('header_image_url')) {
+    itemType = 'blog'
+  }
+  else if (item.hasOwnProperty('essay_source_url')) {
+    itemType = 'essay'
+  }
+  return itemType;
 }
-
-export const IPDATA_KEY ='335beb2ad17cc12676f2792328a5a770c47b89d6768daf9ec2c4d86'
