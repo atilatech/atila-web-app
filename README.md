@@ -1,4 +1,7 @@
-# AtilaWebApp
+# Atila Web App
+
+# This project is now archived. See [atilatech/client-web-app](https://github.com/atilatech/client-web-app) for a more up to date version
+
 
 This repository contains the open sourced code for [atila.ca](https://atila.ca). More code from the production web app will be added on an ongoing basis.
 
